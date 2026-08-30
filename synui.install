@@ -1,0 +1,62 @@
+# synui.install — put the fingerprint reader in the LOGIN stack, not just the
+# lock's.
+#
+# ⛔ THE GREETER HAS NEVER HAD ONE. synui ships /etc/pam.d/synui-lock-fprint and
+# the helper that drives it, so a fingerprint unlocks a LOCKED screen. Logging
+# in is a different stack entirely: greetd authenticates through
+# /etc/pam.d/greetd, which is greetd's own file and contains pam_securetty,
+# pam_nologin and system-local-login — and no pam_fprintd. So at boot there was
+# nothing to swipe at, ever. Reported as "it's mostly there at lock, it's the
+# boot it usually isn't if not ever", which was exactly right.
+#
+# ⚠ WHY EDIT greetd's FILE AT ALL. /etc/pam.d/greetd belongs to the greetd
+# package; shipping our own copy would be a file conflict and neither package
+# would install. It IS in greetd's backup= array, which is what makes
+# editing it safe: pacman preserves the modification across greetd upgrades and
+# writes a .pacnew instead of overwriting, so the line does not silently vanish
+# one update later.
+#
+# ⛔ sufficient, NEVER required. A reader that is absent, broken, unenrolled or
+# simply not swiped must fall through to the password prompt. `required` here
+# would mean a laptop whose reader failed cannot be logged into at all — the
+# one bug in this area nobody could work around from the login screen.
+#
+# ⛔ AND OPT-IN, BECAUSE A READER THAT DOES NOT WORK IS NOT FREE. pam_fprintd
+# blocks the PAM conversation while it waits, and greetd runs one conversation
+# at a time — so on a machine whose sensor never answers, every login pays that
+# timeout and gets nothing for it. Measured on the ThinkPad: the sensor
+# enumerates (06cb:00bd) but reports bcdDevice 0.00 and no product string,
+# fprintd logs "Device responded with error: 789" the instant it starts, and
+# every lock screen for a week logged "reader never became available". The
+# fingerprint could not have worked there, and the wait was pure cost.
+#
+# So the line goes in only when $_fp_flag says somebody wants it, and an
+# unmarked machine has it TAKEN OUT again on upgrade. Default is a fast login;
+# a working reader is one file away.
+#
+# SynapseOS Project — GPL-2.0-or-later
+
+# ⛔ ONE IMPLEMENTATION, AND IT IS NOT THIS FILE. The PAM editing lives in
+# /usr/lib/synui/synui-login-fprint, which a systemd oneshot also runs before
+# greetd starts. A copy here would be a second set of decisions about which line
+# is ours and when to remove it, and the two would drift — with the difference
+# showing up as a login screen nobody can explain.
+#
+# ⚠ AND THE SCRIPTLET IS NO LONGER THE ONLY WAY IT RUNS, which was the bug: an
+# opt-in that only applied during a package upgrade meant creating the flag did
+# nothing until pacman next touched synui. Reported as "not working", correctly.
+_synui_login_fprint=/usr/lib/synui/synui-login-fprint
+
+_synui_fprint_in_greeter() {
+    # Absent on a partial install; nothing here is worth failing an upgrade for.
+    [ -x "$_synui_login_fprint" ] || return 0
+    "$_synui_login_fprint" || true
+}
+
+post_install() {
+    _synui_fprint_in_greeter
+}
+
+post_upgrade() {
+    _synui_fprint_in_greeter
+}
