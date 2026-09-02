@@ -74,4 +74,4 @@ Developed in [the SynapseOS monorepo](https://github.com/velle999/SYNAPSE),
 in `synui/`. **This repository is generated from it** — the PKGBUILD, a
 generated `.SRCINFO` and this README — so issues and patches belong there.
 
-synui 0.1.0-585 · GPL-2.0-or-later, MIT, Apache-2.0, CC-BY-SA-4.0
+synui 0.1.0-586 · GPL-2.0-or-later, MIT, Apache-2.0, CC-BY-SA-4.0
