@@ -1,7 +1,7 @@
 pkgbase = synui
 	pkgdesc = SynapseOS Wayland Compositor
 	pkgver = 0.1.0
-	pkgrel = 597
+	pkgrel = 598
 	install = synui.install
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -96,7 +96,7 @@ pkgbase = synui
 	optdepends = fprintd: unlock the lock screen AND log in with a fingerprint,\n and enrol one in syn-settings ▸ Fingerprint
 	backup = etc/MangoHud.conf
 	backup = etc/synapseos/mangohud.conf
-	source = synui-0.1.0.tar.gz::https://github.com/velle999/synui/releases/download/0.1.0-597/synui-0.1.0.tar.gz
+	source = synui-0.1.0.tar.gz::https://github.com/velle999/synui/releases/download/0.1.0-598/synui-0.1.0.tar.gz
 	sha256sums = SKIP
 
 pkgname = synui
