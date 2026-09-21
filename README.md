@@ -60,6 +60,7 @@ palette moves the launcher keys and F3 moves what a tapped `Super` opens.
 ## Install
 
 ```bash
+curl -sL https://soslinux.org/synapseos-update-key.asc | gpg --import   # once
 git clone https://github.com/velle999/synui
 cd synui && makepkg -si
 ```
@@ -68,10 +69,14 @@ makepkg fetches the source for this PKGBUILD's exact version from this
 repository's releases, so a clone can only ever build the source it was
 written against. `.SRCINFO` lists what it needs.
 
+The source is signed with the SynapseOS update key, and makepkg refuses it
+unless the signature is good. The fingerprint is in
+[SECURITY.md](https://github.com/velle999/SYNAPSE/blob/main/SECURITY.md).
+
 ## Where this comes from
 
 Developed in [the SynapseOS monorepo](https://github.com/velle999/SYNAPSE),
 in `synui/`. **This repository is generated from it** — the PKGBUILD, a
 generated `.SRCINFO` and this README — so issues and patches belong there.
 
-synui 0.1.0-623 · GPL-2.0-or-later, MIT, Apache-2.0, CC-BY-SA-4.0
+synui 0.1.0-624 · GPL-2.0-or-later, MIT, Apache-2.0, CC-BY-SA-4.0

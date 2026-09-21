@@ -3725,7 +3725,11 @@ pkgver=0.1.0
 #   ("CMD: firefox"): started as itself, because a sandboxed browser cannot
 #   write its own profile and a name alone carries no payload.
 #   tests/cmdplan_test.c holds it, including the model's actual answers.
-pkgrel=623
+# 624: the source tarball is signed, so it has to be re-derivable from its
+#   commit. mktarball.sh packs the same bytes every time (sorted, fixed clock
+#   and owner) and leaves out anything .gitignore names — 623's published
+#   source carried a stray __pycache__. The package is unchanged.
+pkgrel=624
 pkgdesc="SynapseOS Wayland Compositor"
 arch=('x86_64')
 # GPL-2.0-or-later is synui's own code. MIT covers quickshell-antiquity/, a port
@@ -4783,3 +4787,9 @@ package() {
     install -Dm644 data/wallpapers/WALLPAPERS.md \
         "$pkgdir/usr/share/licenses/$pkgname/WALLPAPERS.md"
 }
+
+# Added by packaging/git-export.sh: the tarball is signed with the SynapseOS
+# update key, and makepkg refuses it unless the signature is good.
+source+=("$pkgname-$pkgver.tar.gz.sig::https://github.com/velle999/$pkgname/releases/download/$pkgver-$pkgrel/$pkgname-$pkgver.tar.gz.sig")
+sha256sums+=('SKIP')
+validpgpkeys=('648B4C32942C79B20E8AC3F49CECEBCDF48037C1')  # SynapseOS Update Signing <updates@soslinux.org>
