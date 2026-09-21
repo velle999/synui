@@ -1,7 +1,7 @@
 pkgbase = synui
 	pkgdesc = SynapseOS Wayland Compositor
 	pkgver = 0.1.0
-	pkgrel = 622
+	pkgrel = 623
 	install = synui.install
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -69,6 +69,7 @@ pkgbase = synui
 	depends = unrar
 	depends = jq
 	depends = cava
+	optdepends = syn-confine: run shell commands from the command bar in a sandbox
 	optdepends = cups: find and set up network printers (synui-printers)
 	optdepends = avahi: the mDNS announcements network printers and shares make
 	optdepends = kitty: the terminal SynapseOS defaulted to before syntty — add it if you want it; every synuirc written between synui 215 and 358 still names it, and anim.c draws it on glass
@@ -97,7 +98,7 @@ pkgbase = synui
 	backup = etc/MangoHud.conf
 	backup = etc/synapseos/mangohud.conf
 	backup = etc/skel/.config/synui/synuirc
-	source = synui-0.1.0.tar.gz::https://github.com/velle999/synui/releases/download/0.1.0-622/synui-0.1.0.tar.gz
+	source = synui-0.1.0.tar.gz::https://github.com/velle999/synui/releases/download/0.1.0-623/synui-0.1.0.tar.gz
 	sha256sums = SKIP
 
 pkgname = synui
