@@ -1,7 +1,7 @@
 pkgbase = synui
 	pkgdesc = SynapseOS Wayland Compositor
 	pkgver = 0.1.0
-	pkgrel = 621
+	pkgrel = 622
 	install = synui.install
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -97,7 +97,7 @@ pkgbase = synui
 	backup = etc/MangoHud.conf
 	backup = etc/synapseos/mangohud.conf
 	backup = etc/skel/.config/synui/synuirc
-	source = synui-0.1.0.tar.gz::https://github.com/velle999/synui/releases/download/0.1.0-621/synui-0.1.0.tar.gz
+	source = synui-0.1.0.tar.gz::https://github.com/velle999/synui/releases/download/0.1.0-622/synui-0.1.0.tar.gz
 	sha256sums = SKIP
 
 pkgname = synui
